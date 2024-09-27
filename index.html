@@ -36,7 +36,7 @@
 		}
 
 		mdui-card.list {
-			padding: 2em;
+			padding: 1em;
 			width: 90%;
 			border-radius: 2rem;
 			margin-bottom: 1rem;
@@ -127,19 +127,19 @@
 		<center>
 			<mdui-card class="list" style="margin-top: 0.5em;">
 				<p style="display: flex;align-items: center;">
-					<mdui-icon name="school"></mdui-icon>
+					<mdui-icon name="notifications--outlined"></mdui-icon>
 					<b>&nbsp;&nbsp;小贤教育助手</b>
 				</p>
-				<h2 style="font-weight: lighter;">周测报告</h2>
+				周测报告 - 地理周测
 			</mdui-card>
 		</center>
 
 		<mdui-dialog class="example-dialog" close-on-esc close-on-overlay-click icon="extension--outlined"
 			headline="添加插件"
 			description="">
-			<mdui-text-field variant="outlined" label="插件显示名称（默认为文件名）" style="margin-top: 1em;margin-bottom: 1em;"></mdui-text-field>
+			<mdui-text-field variant="outlined" label="插件显示名称（默认为文件名）" value="Plugin1" style="margin-top: 1em;margin-bottom: 1em;"></mdui-text-field>
 			<mdui-button icon="file_upload--outlined" style="width: 100%;">选择文件以导入</mdui-button>
-			<mdui-button style="width: 100%;" variant="text">取消</mdui-button>
+			<mdui-button style="width: 100%;" variant="text" class="dialogCancel">取消</mdui-button>
 		</mdui-dialog>
 
 		<mdui-fab icon="add" style="position: fixed;bottom: 8em;right: 2em;"></mdui-fab>
@@ -147,7 +147,7 @@
 		<script>
 			const dialog = document.querySelector(".example-dialog");
 			const openButtonDialog = dialog.nextElementSibling;
-			const closeButtonDlalog = dialog.querySelector("mdui-button");
+			const closeButtonDlalog = dialog.querySelector(".dialogCancel");
 
 			openButtonDialog.addEventListener("click", () => dialog.open = true);
 			closeButtonDlalog.addEventListener("click", () => dialog.open = false);

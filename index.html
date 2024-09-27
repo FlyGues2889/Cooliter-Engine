@@ -113,7 +113,6 @@
 			</mdui-navigation-drawer>
 
 			<mdui-button-icon icon="menu"></mdui-button-icon>
-
 			<script>
 				const navigationDrawer = document.querySelector(".example-drawer");
 				const openButton = navigationDrawer.nextElementSibling;
@@ -122,22 +121,61 @@
 			</script>
 
 			<mdui-top-app-bar-title>Cooliter Engine</mdui-top-app-bar-title>
+
+			<mdui-button-icon icon="fullscreen" onclick="handleFullScreen()"></mdui-button-icon>
 		</mdui-top-app-bar>
 
 		<center>
 			<mdui-card class="list" style="margin-top: 0.5em;">
 				<p style="display: flex;align-items: center;">
-					<mdui-icon name="notifications--outlined"></mdui-icon>
-					<b>&nbsp;&nbsp;小贤教育助手</b>
+					<mdui-icon name="center_focus_weak--outlined"></mdui-icon>
+					<b>&nbsp;&nbsp;扫描以快速添加</b>
 				</p>
-				周测报告 - 地理周测
+				<center>
+					打开摄像头并扫描平台二维码以自动获取插件。
+					<mdui-button icon="camera_alt" onclick="getMedia()" variant="tonal"
+						style="margin-top: 1em;">开启摄像头</mdui-button>
+					<mdui-button icon="close" onclick="stopMedia(video)" variant="tonal">关闭摄像头</mdui-button>
+					<!-- <input type="button" title="HTML5摄像头" value="开启摄像头" onclick="getMedia()" />
+					<input type="button" title="关闭摄像头" value="关闭摄像头" onclick="stopMedia(video)" /> -->
+					<video id="video" autoplay="autoplay" style="border-radius: 1em;"></video>
+				</center>
+				<script>
+					function getMedia() {
+						let constraints = {
+							//参数
+							video: { width: 320, height: 320 },
+							audio: true
+						};
+						//获得video摄像头区域
+						let video = document.getElementById("video");
+						//返回的Promise对象
+						let promise = navigator.mediaDevices.getUserMedia(constraints);
+						//then()异步，调用MediaStream对象作为参数
+						promise.then(function (MediaStream) {
+							video.srcObject = MediaStream;
+							video.play();
+						});
+					}
+
+					function stopMedia(videoElem) {
+						const stream = videoElem.srcObject;
+						const tracks = stream.getTracks();
+						tracks.forEach(function (track) {
+							track.stop();  //停止视频流
+						});
+
+						videoElem.srcObject = null;
+					} 
+				</script>
 			</mdui-card>
+
 		</center>
 
 		<mdui-dialog class="example-dialog" close-on-esc close-on-overlay-click icon="extension--outlined"
-			headline="添加插件"
-			description="">
-			<mdui-text-field variant="outlined" label="插件显示名称（默认为文件名）" value="Plugin1" style="margin-top: 1em;margin-bottom: 1em;"></mdui-text-field>
+			headline="添加插件" description="">
+			<mdui-text-field variant="outlined" label="插件显示名称（默认为文件名）" value="Plugin1"
+				style="margin-top: 1em;margin-bottom: 1em;"></mdui-text-field>
 			<mdui-button icon="file_upload--outlined" style="width: 100%;">选择文件以导入</mdui-button>
 			<mdui-button style="width: 100%;" variant="text" class="dialogCancel">取消</mdui-button>
 		</mdui-dialog>
@@ -152,7 +190,51 @@
 			openButtonDialog.addEventListener("click", () => dialog.open = true);
 			closeButtonDlalog.addEventListener("click", () => dialog.open = false);
 		</script>
+
 	</mdui-layot>
 </body>
+<script>
+	//定义一个变量进行判断，默认false 非全屏状态
+	var exitFullscreen = false
+	// 全屏事件
+	function handleFullScreen() {
+		var element = document.documentElement;
+		if (this.fullscreen) {
+			if (document.exitFullscreen) {
+				document.exitFullscreen();
+			} else if (document.webkitCancelFullScreen) {
+				document.webkitCancelFullScreen();
+			} else if (document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+			} else if (document.msExitFullscreen) {
+				document.msExitFullscreen();
+			}
+		} else {
+			if (element.requestFullscreen) {
+				element.requestFullscreen();
+			} else if (element.webkitRequestFullScreen) {
+				element.webkitRequestFullScreen();
+			} else if (element.mozRequestFullScreen) {
+				element.mozRequestFullScreen();
+			} else if (element.msRequestFullscreen) {
+				// IE11
+				element.msRequestFullscreen();
+			}
+		}
+	}
+	window.onresize = function () {
+		var isFull = !!(document.webkitIsFullScreen || document.mozFullScreen ||
+			document.msFullscreenElement || document.fullscreenElement
+		);//!document.webkitIsFullScreen都为true。因此用!!
+		if (isFull == false) {
+			$("#exitFullScreen").css("display", "none");
+			$("#fullScreen").css("display", "");
+		} else {
+			$("#exitFullScreen").css("display", "");
+			$("#fullScreen").css("display", "none");
+		}
+	}
+
+</script>
 
 </html>

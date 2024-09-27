@@ -29,6 +29,10 @@
 
 
 	<style>
+		html{
+			width: 100vw;
+			height: 100vh;
+		}
 		mdui-card.list {
 			padding: 2rem;
 			width: 80%;
@@ -82,7 +86,7 @@
 						</div>
 					</mdui-card>
 					<mdui-card
-						style="padding: 1em;margin: 1em;width: 80%;margin-top: 0;text-align: left;border-radius: 1.6em;"
+						style="background-color: rgb(var(--mdui-color-on-surface-container));padding: 1em;margin: 1em;width: 80%;margin-top: 0;text-align: left;border-radius: 1.6em;"
 						variant="outlined">
 						<div style="display: table-cell;width: 20%;vertical-align: middle;">
 							<mdui-icon name="account_circle--outlined"></mdui-icon><br>
@@ -95,7 +99,7 @@
 							<mdui-button-icon icon="arrow_upward" slot="trigger"></mdui-button-icon>
 						</div>
 					</mdui-card>
-				</center> 
+				</center>
 				<mdui-list style="padding: 1em;">
 					<mdui-list-subheader style="margin-bottom: -1.6em;">主界面</mdui-list-subheader>
 					<mdui-list-item icon="history" rounded active>最近</mdui-list-item>
@@ -117,6 +121,8 @@
 
 			<mdui-top-app-bar-title>Cooliter Engine</mdui-top-app-bar-title>
 		</mdui-top-app-bar>
+
+		<mdui-fab icon="add" style="position: fixed;bottom: 8em;right: 2em;"></mdui-fab>
 
 
 	</mdui-layot>
